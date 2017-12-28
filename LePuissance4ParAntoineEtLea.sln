@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePuissance4ParAntoineEtLea", "LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea.csproj", "{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "LePuissance4ParAntoineEtLeaContent", "LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\LePuissance4ParAntoineEtLeaContent.contentproj", "{E1B23260-1767-44E0-9714-FF4C28F6D1AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}.Debug|x86.ActiveCfg = Debug|x86
+		{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}.Debug|x86.Build.0 = Debug|x86
+		{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}.Release|x86.ActiveCfg = Release|x86
+		{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}.Release|x86.Build.0 = Release|x86
+		{E1B23260-1767-44E0-9714-FF4C28F6D1AA}.Debug|x86.ActiveCfg = Debug|x86
+		{E1B23260-1767-44E0-9714-FF4C28F6D1AA}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
