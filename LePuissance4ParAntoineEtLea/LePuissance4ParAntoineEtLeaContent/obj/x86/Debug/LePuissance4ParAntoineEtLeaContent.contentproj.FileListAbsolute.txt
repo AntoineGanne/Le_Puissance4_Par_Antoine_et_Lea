@@ -1,1 +1,2 @@
 D:\coding\c#\FastCo-by-Antoine-L-a-\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\obj\x86\Debug\LePuissance4ParAntoineEtLeaContent.contentprojResolveAssemblyReference.cache
+D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\obj\x86\Debug\LePuissance4ParAntoineEtLeaContent.contentprojResolveAssemblyReference.cache
