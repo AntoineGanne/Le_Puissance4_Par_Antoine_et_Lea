@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePuissance4ParAntoineEtLea", "LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea.csproj", "{EDD3B10C-B40D-4318-BF51-9EFB71C9B906}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "LePuissance4ParAntoineEtLeaContent", "LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\LePuissance4ParAntoineEtLeaContent.contentproj", "{E1B23260-1767-44E0-9714-FF4C28F6D1AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePuissance4ParAntoineEtLeaContent", "LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\LePuissance4ParAntoineEtLeaContent.contentproj", "{E1B23260-1767-44E0-9714-FF4C28F6D1AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

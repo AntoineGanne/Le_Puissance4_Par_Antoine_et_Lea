@@ -27,6 +27,9 @@ namespace LePuissance4ParAntoineEtLea
         private byte joueurActuel;  //1=Joueur Jaune;  2=Joueur Rouge;
         private byte gagnant; //joueur ayant gagné, au moment ou la partie se finit
         private bool partieEnCours; //est vrai si une partie est en cours
+        private bool botActif; //est vrai si le joueur affronte un bot
+        private Bot botJeu;
+        private bool tourBot; //est vrai si c'est au bot de jouer
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
 
@@ -47,7 +50,9 @@ namespace LePuissance4ParAntoineEtLea
             joueurActuel = 1;
             partieEnCours = true;
             gagnant = 0;
-
+            botActif = true;
+            botJeu = new Bot();
+            tourBot = false;
             //fonctionDeTest();
         }
 
@@ -122,27 +127,19 @@ namespace LePuissance4ParAntoineEtLea
 
             if (partieEnCours)
             {
-                if ((keyboard.IsKeyDown(Keys.Space) && !oldState.IsKeyDown(Keys.Space))
-                || (keyboard.IsKeyDown(Keys.Down) && !oldState.IsKeyDown(Keys.Down)))
+                if (botActif && tourBot)
                 {
-                    if (damier[0, colonnePionAPlacer] == 0)
+                    int choixBot = botJeu.choixColonne(damier);
+                    bool succesPose=posePion(choixBot);
+                    if(succesPose) tourBot = false;
+                }
+                else
+                {
+                    if ((keyboard.IsKeyDown(Keys.Space) && !oldState.IsKeyDown(Keys.Space))
+                         || (keyboard.IsKeyDown(Keys.Down) && !oldState.IsKeyDown(Keys.Down)))
                     {
-                        int y = 0;
-                        while (y < VY && damier[y, colonnePionAPlacer] == 0)
-                        {
-                            y++;
-                        }
-                        damier[y - 1, colonnePionAPlacer] = joueurActuel;
-                        if (testFin(joueurActuel, colonnePionAPlacer, y - 1))
-                        {
-                            gagnant = joueurActuel;
-                            partieEnCours = false;
-                        }
-
-
-                        joueurActuel = (byte)((joueurActuel == (byte)1) ? 2 : 1);
-
-
+                        bool succesPose=posePion(colonnePionAPlacer);
+                        if (succesPose &&botActif && partieEnCours) tourBot = true;
                     }
                 }
             }
@@ -167,6 +164,39 @@ namespace LePuissance4ParAntoineEtLea
 
             oldState = keyboard;
             base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// met a jour la grille pour placer un pion du joueur actuel  
+        /// renvoit faux si la colonne n'est pas valide (si elle est remplie)
+        /// </summary>
+        /// <param name="colonne"></param>
+        /// <returns></returns>
+        private bool posePion(int colonne)
+        {
+            if (damier[0, colonne] == 0)
+            {
+                int y = 0;
+                while (y < VY && damier[y, colonne] == 0)
+                {
+                    y++;
+                }
+                damier[y - 1, colonne] = joueurActuel;
+                if (testFin(joueurActuel, colonne, y - 1))
+                {
+                    gagnant = joueurActuel;
+                    partieEnCours = false;
+                }
+
+
+                joueurActuel = (byte)((joueurActuel == (byte)1) ? 2 : 1);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -238,11 +268,11 @@ namespace LePuissance4ParAntoineEtLea
                 //On doit tester si il y a 4 pions du joueur dans les 4 directions autours du pion placé
                 int xOffset = 0;
                 int yOffset = 1;
-                int nbPions = comptePionsDirection(xIN, yIN, xOffset, yOffset, joueur);
+                int nbPions = comptePionsDirection(xIN, yIN, xOffset, yOffset, joueur,damier);
                 xOffset = 1;
                 for (yOffset = -1; yOffset <= 1; yOffset++)
                 {
-                    int nbPionsTemp = comptePionsDirection(xIN, yIN, xOffset, yOffset, joueur);
+                    int nbPionsTemp = comptePionsDirection(xIN, yIN, xOffset, yOffset, joueur,damier);
                     nbPions = (nbPions > nbPionsTemp ? nbPions : nbPionsTemp); //on prend le max de toutes les directions possibles
                 }
 
@@ -258,7 +288,17 @@ namespace LePuissance4ParAntoineEtLea
         }
 
 
-        private int comptePionsDirection(int xIN, int yIN, int xOffset, int yOffset, byte joueur)
+        /// <summary>
+        /// compte les pions d'un meme joueur autours d'une position donnée et selon une direction donnée par xOffset et yOffset
+        /// </summary>
+        /// <param name="xIN"></param>
+        /// <param name="yIN"></param>
+        /// <param name="xOffset"></param>
+        /// <param name="yOffset"></param>
+        /// <param name="joueur"></param>
+        /// <param name="damier"></param>
+        /// <returns></returns>
+        private int comptePionsDirection(int xIN, int yIN, int xOffset, int yOffset, byte joueur, byte[,] damier)
         {
             int nbPions = 1; //commence a 1 car le pion posé est compté d'office
             for (int sens = -1; sens <= 1; sens += 2)
@@ -294,6 +334,9 @@ namespace LePuissance4ParAntoineEtLea
             for (int colonne = 0; colonne < VX; colonne++)
             {
             }
+
+            Console.WriteLine(VY+"  damier.GetLength(0)="+damier.GetLength(0));
+            Console.WriteLine(VX+"  damier.GetLength(1)=" + damier.GetLength(1));
         }
     }
 }
