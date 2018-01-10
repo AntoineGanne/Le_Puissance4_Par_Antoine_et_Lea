@@ -40,3 +40,4 @@ D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuis
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\bouton.xnb

@@ -46,6 +46,15 @@
       <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\MyFont.xnb</Output>
       <Time>2017-12-29T00:08:26.3769371+01:00</Time>
     </Item>
+    <Item>
+      <Source>images\bouton.png</Source>
+      <Name>images\bouton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\bouton.xnb</Output>
+      <Time>2018-01-10T18:43:37.2185222+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{E1B23260-1767-44E0-9714-FF4C28F6D1AA}</ContentProjectGUID>

@@ -30,6 +30,7 @@ namespace LePuissance4ParAntoineEtLea
         private bool botActif; //est vrai si le joueur affronte un bot
         private Bot botJeu;
         private bool tourBot; //est vrai si c'est au bot de jouer
+        private Bouton[] tabBoutons;  //stocke les differents boutons
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
 
@@ -38,6 +39,8 @@ namespace LePuissance4ParAntoineEtLea
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
+
             damier = new byte[VY, VX]{
                 {0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0 },
@@ -50,9 +53,11 @@ namespace LePuissance4ParAntoineEtLea
             joueurActuel = 1;
             partieEnCours = true;
             gagnant = 0;
-            botActif = true;
+            botActif = false;
             botJeu = new Bot();
             tourBot = false;
+
+            tabBoutons = new Bouton[1];
             //fonctionDeTest();
         }
 
@@ -86,9 +91,14 @@ namespace LePuissance4ParAntoineEtLea
 
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
+            ////sprites
             cadre = new ObjetPuissance4(Content.Load<Texture2D>("images\\cadre"), new Vector2(0f, 0f), new Vector2(100f, 100f));
             pionJaune = new ObjetPuissance4(Content.Load<Texture2D>("images\\jaune"), new Vector2(0f, 0f), new Vector2(100f, 100f));
             pionRouge = new ObjetPuissance4(Content.Load<Texture2D>("images\\rouge"), new Vector2(0f, 0f), new Vector2(100f, 100f));
+
+            ////boutons
+            tabBoutons[0] = new Bouton("Jouer", true, Content.Load<Texture2D>("images\\bouton"), new Vector2((1024-600)/2, 920-200), new Vector2(600f, 150f));
+
         }
 
         /// <summary>
@@ -114,6 +124,7 @@ namespace LePuissance4ParAntoineEtLea
             //note: l'attribut oldState permet d'ignorer la touche pressée si le joeur reste appuyé dessus
             // c'est nécessaire car sinon chaque commande est appelée plusieurs fois a chaques pression du bouton
 
+            ///////// entrées clavier
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.Right) && !oldState.IsKeyDown(Keys.Right))
             {
@@ -147,7 +158,44 @@ namespace LePuissance4ParAntoineEtLea
             {
                 if (keyboard.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
                 {
-                    damier = new byte[VY, VX]{
+                    nouvellePartie();
+
+                }
+            }
+            
+            oldState = keyboard;
+
+
+            //// interactions souris
+            foreach(Bouton btn in tabBoutons)
+            {
+                if (btn.isOver(new Vector2(Mouse.GetState().X, Mouse.GetState().Y)) && btn.Visible)
+                {
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    {
+                        //il faut prévoir l'action a effectuer pour chaque bouton
+                        switch (btn.Texte)
+                        {
+                            case "Jouer":
+                                nouvellePartie();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// renitialise le plateau.
+        /// renitialise les params partieEnCours et gagnant si la partie etait finie
+        /// </summary>
+        private void nouvellePartie()
+        {
+            //le plateau est renitialisé
+            damier = new byte[VY, VX]{
                             {0, 0, 0, 0, 0, 0, 0 },
                             {0, 0, 0, 0, 0, 0, 0 },
                             {0, 0, 0, 0, 0, 0, 0 },
@@ -155,15 +203,19 @@ namespace LePuissance4ParAntoineEtLea
                             {0, 0, 0, 0, 0, 0, 0 },
                             {0, 0, 0, 0, 0, 0, 0 }
                         };
+            //si la partie etait bien finie
+            if (!partieEnCours)
+            {
+                partieEnCours = true;
+                if (gagnant != 0)
+                {
                     joueurActuel = gagnant;
-                    partieEnCours = true;
                     gagnant = 0;
-
                 }
             }
-
-            oldState = keyboard;
-            base.Update(gameTime);
+            
+            //si la partie n'etait pas finie, on se contente de renitialiser le plateau
+            
         }
 
         /// <summary>
@@ -208,24 +260,11 @@ namespace LePuissance4ParAntoineEtLea
             GraphicsDevice.Clear(Color.PapayaWhip);
 
             spriteBatch.Begin();
-            // TODO: Add your drawing code here
+
             int offsetX = 140;
             int offsetY = 100;
 
-            if (partieEnCours)
-            {
-                //on dessine un pion au dessus de la colonne sélectionnée
-                Vector2 posAPlacer = new Vector2(offsetX + colonnePionAPlacer * 100, 0);
-                ObjetPuissance4 pion = (joueurActuel == 1 ? pionJaune : pionRouge);
-                spriteBatch.Draw(pion.Texture, posAPlacer, Color.White);
-            }
-            else
-            {
-                string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! \n  appuyez sur enter pour rejouer");
-                Vector2 position = new Vector2(100, 10);
-                spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
-            }
-
+            //// dessin grille de jeu
             for (int x = 0; x < VX; x++)
             {
                 for (int y = 0; y < VY; y++)
@@ -247,6 +286,36 @@ namespace LePuissance4ParAntoineEtLea
 
                 }
             }
+
+            //// dessin divers
+            //// traitement selon l'etat de la partie
+            if (partieEnCours)
+            {
+                //on dessine un pion au dessus de la colonne sélectionnée
+                Vector2 posAPlacer = new Vector2(offsetX + colonnePionAPlacer * 100, 0);
+                ObjetPuissance4 pion = (joueurActuel == 1 ? pionJaune : pionRouge);
+                spriteBatch.Draw(pion.Texture, posAPlacer, Color.White);
+            }
+            else
+            {
+                string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! \n  appuyez sur enter pour rejouer");
+                Vector2 position = new Vector2(100, 10);
+                spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
+                
+            }
+
+            ////boutons
+            foreach (Bouton btn in tabBoutons)
+            {
+                if (btn.Visible)
+                {
+                    spriteBatch.Draw(btn.Texture, btn.Position, Color.White);
+                }
+            }
+
+
+
+
             spriteBatch.End();
 
             base.Draw(gameTime);
