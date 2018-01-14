@@ -16,6 +16,8 @@ namespace LePuissance4ParAntoineEtLea
             joueurBot = 2;
         }
 
+        //public choixNiveau()
+
         public int choixColonne(byte[,] damier)
         {
             int dimX = damier.GetLength(1);

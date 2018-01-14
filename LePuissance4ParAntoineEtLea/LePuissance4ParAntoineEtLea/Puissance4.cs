@@ -28,6 +28,7 @@ namespace LePuissance4ParAntoineEtLea
         private byte gagnant; //joueur ayant gagné, au moment ou la partie se finit
         private bool partieEnCours; //est vrai si une partie est en cours
         private bool botActif; //est vrai si le joueur affronte un bot
+        private bool menuActif; //est vrai si le menu doit etre affiché
         private Bot botJeu;
         private bool tourBot; //est vrai si c'est au bot de jouer
         private Bouton[] tabBoutons;  //stocke les differents boutons
@@ -56,8 +57,9 @@ namespace LePuissance4ParAntoineEtLea
             botActif = false;
             botJeu = new Bot();
             tourBot = false;
+            menuActif = false;
 
-            tabBoutons = new Bouton[1];
+            tabBoutons = new Bouton[2];
             //fonctionDeTest();
         }
 
@@ -97,8 +99,8 @@ namespace LePuissance4ParAntoineEtLea
             pionRouge = new ObjetPuissance4(Content.Load<Texture2D>("images\\rouge"), new Vector2(0f, 0f), new Vector2(100f, 100f));
 
             ////boutons
-            tabBoutons[0] = new Bouton("Jouer", true, Content.Load<Texture2D>("images\\bouton"), new Vector2((1024-600)/2, 920-200), new Vector2(600f, 150f));
-
+            tabBoutons[0] = new Bouton("Rejouer", true, Content.Load<Texture2D>("images\\bouton"), new Vector2(0, 920-200), new Vector2(600f, 150f));
+            tabBoutons[1]=new Bouton("Retour Menu",true, Content.Load<Texture2D>("images\\bouton"), new Vector2((1024 - 600), 920 - 200), new Vector2(600f, 150f));
         }
 
         /// <summary>
@@ -176,8 +178,21 @@ namespace LePuissance4ParAntoineEtLea
                         //il faut prévoir l'action a effectuer pour chaque bouton
                         switch (btn.Texte)
                         {
-                            case "Jouer":
+                            case "Rejouer":
                                 nouvellePartie();
+                                break;
+                            case "Retour Menu":
+                                menuActif = true;
+                                break;
+                            case "Jouer entre humains":
+                                botActif = false;
+                                menuActif = false;
+                                nouvellePartie();
+                                break;
+                            case "Jouer contre un bot facile":
+                                botActif = true;
+                                tourBot = false;
+                                
                                 break;
                             default:
                                 break;
@@ -298,7 +313,7 @@ namespace LePuissance4ParAntoineEtLea
             }
             else
             {
-                string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! \n  appuyez sur enter pour rejouer");
+                string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! Appuyez sur enter pour rejouer");
                 Vector2 position = new Vector2(100, 10);
                 spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
                 
@@ -307,10 +322,9 @@ namespace LePuissance4ParAntoineEtLea
             ////boutons
             foreach (Bouton btn in tabBoutons)
             {
-                if (btn.Visible)
-                {
-                    spriteBatch.Draw(btn.Texture, btn.Position, Color.White);
-                }
+                //spriteBatch.Draw(btn.Texture, btn.Position, Color.White);
+                btn.draw(spriteBatch, textFont);
+
             }
 
 
