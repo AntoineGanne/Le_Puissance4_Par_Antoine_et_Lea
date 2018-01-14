@@ -31,6 +31,7 @@ namespace LePuissance4ParAntoineEtLea
         private bool menuActif; //est vrai si le menu doit etre affiché
         private Bot botJeu;
         private bool tourBot; //est vrai si c'est au bot de jouer
+        
         private Bouton[] tabBoutons;  //stocke les differents boutons
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
@@ -52,14 +53,15 @@ namespace LePuissance4ParAntoineEtLea
             };
             colonnePionAPlacer = 0;
             joueurActuel = 1;
-            partieEnCours = true;
+            partieEnCours = false;
             gagnant = 0;
             botActif = false;
             botJeu = new Bot();
             tourBot = false;
-            menuActif = false;
+            menuActif = true;
 
-            tabBoutons = new Bouton[2];
+            int nbBoutons = 5;
+            tabBoutons = new Bouton[nbBoutons];
             //fonctionDeTest();
         }
 
@@ -99,8 +101,40 @@ namespace LePuissance4ParAntoineEtLea
             pionRouge = new ObjetPuissance4(Content.Load<Texture2D>("images\\rouge"), new Vector2(0f, 0f), new Vector2(100f, 100f));
 
             ////boutons
+                //mise en place d'une texture de couleur unie
+            int xText = 400, yText = 100;
+            Texture2D texture_btn_400x200 = new Texture2D(GraphicsDevice, xText, yText);
+            Color[] tabColor = new Color[xText * yText];
+            for(int i = 0; i < xText * yText; ++i)
+            {
+                tabColor[i] = Color.CadetBlue;
+            }
+            texture_btn_400x200.SetData(tabColor,0, xText * yText);
+
+
+
+            tabBoutons[0] = new Bouton("Rejouer",false, texture_btn_400x200, new Vector2((1024/4)-xText/2, 920 - yText-50), new Vector2(400f, 200f));
+            tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x200, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 200f));
+
+            // boutons du menu
+            int nbBoutonsMenu = 3;
+            int yOffset = (920 - nbBoutonsMenu * yText) / (nbBoutonsMenu + 1);
+            int yPos = yOffset;
+            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x200, new Vector2((1024/2- xText / 2), yPos), new Vector2(400f, 200f));
+            yPos += yOffset + yText;
+            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x200, new Vector2((1024 / 2 - xText / 2), yPos), new Vector2(400f, 200f));
+            yPos += yOffset + yText;
+            tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x200, new Vector2((1024 / 2 - xText / 2), yPos), new Vector2(400f, 200f));
+
+
+
+            /*
             tabBoutons[0] = new Bouton("Rejouer", true, Content.Load<Texture2D>("images\\bouton"), new Vector2(0, 920-200), new Vector2(600f, 150f));
             tabBoutons[1]=new Bouton("Retour Menu",true, Content.Load<Texture2D>("images\\bouton"), new Vector2((1024 - 600), 920 - 200), new Vector2(600f, 150f));
+            
+            */
+
+
         }
 
         /// <summary>
@@ -171,7 +205,9 @@ namespace LePuissance4ParAntoineEtLea
             //// interactions souris
             foreach(Bouton btn in tabBoutons)
             {
-                if (btn.isOver(new Vector2(Mouse.GetState().X, Mouse.GetState().Y)) && btn.Visible)
+                // on détermine si le bouton est visible selon menuActif et la proprieté menu du bouton
+                bool visible = menuActif ? btn.Menu : !btn.Menu;
+                if (btn.isOver(new Vector2(Mouse.GetState().X, Mouse.GetState().Y)) && visible)
                 {
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
@@ -183,16 +219,26 @@ namespace LePuissance4ParAntoineEtLea
                                 break;
                             case "Retour Menu":
                                 menuActif = true;
+                                nouvellePartie();
                                 break;
                             case "Jouer entre humains":
                                 botActif = false;
                                 menuActif = false;
                                 nouvellePartie();
                                 break;
-                            case "Jouer contre un bot facile":
+                            case "Jouer contre le bot facile":
                                 botActif = true;
                                 tourBot = false;
-                                
+                                menuActif = false;
+                                botJeu.SetDifficulte(1);
+                                nouvellePartie();
+                                break;
+                            case "Jouer contre le bot intermediaire":
+                                botActif = true;
+                                tourBot = false;
+                                menuActif = false;
+                                botJeu.SetDifficulte(2);
+                                nouvellePartie();
                                 break;
                             default:
                                 break;
@@ -280,50 +326,55 @@ namespace LePuissance4ParAntoineEtLea
             int offsetY = 100;
 
             //// dessin grille de jeu
-            for (int x = 0; x < VX; x++)
+            if (!menuActif)
             {
-                for (int y = 0; y < VY; y++)
+                for (int x = 0; x < VX; x++)
                 {
-                    int xpos, ypos;
-                    xpos = offsetX + x * 100;
-                    ypos = offsetY + y * 100;
-                    Vector2 pos = new Vector2(xpos, ypos);
+                    for (int y = 0; y < VY; y++)
+                    {
+                        int xpos, ypos;
+                        xpos = offsetX + x * 100;
+                        ypos = offsetY + y * 100;
+                        Vector2 pos = new Vector2(xpos, ypos);
 
-                    if (damier[y, x] == 1)
-                    {
-                        spriteBatch.Draw(pionJaune.Texture, pos, Color.White);
+                        if (damier[y, x] == 1)
+                        {
+                            spriteBatch.Draw(pionJaune.Texture, pos, Color.White);
+                        }
+                        if (damier[y, x] == 2)
+                        {
+                            spriteBatch.Draw(pionRouge.Texture, pos, Color.White);
+                        }
+                        spriteBatch.Draw(cadre.Texture, pos, Color.White);
+
                     }
-                    if (damier[y, x] == 2)
-                    {
-                        spriteBatch.Draw(pionRouge.Texture, pos, Color.White);
-                    }
-                    spriteBatch.Draw(cadre.Texture, pos, Color.White);
+                }
+
+                //// dessin divers
+                //// traitement selon l'etat de la partie
+                if (partieEnCours)
+                {
+                    //on dessine un pion au dessus de la colonne sélectionnée
+                    Vector2 posAPlacer = new Vector2(offsetX + colonnePionAPlacer * 100, 0);
+                    ObjetPuissance4 pion = (joueurActuel == 1 ? pionJaune : pionRouge);
+                    spriteBatch.Draw(pion.Texture, posAPlacer, Color.White);
+                }
+                else
+                {
+                    string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! Appuyez sur enter pour rejouer");
+                    Vector2 position = new Vector2(100, 10);
+                    spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
 
                 }
             }
 
-            //// dessin divers
-            //// traitement selon l'etat de la partie
-            if (partieEnCours)
-            {
-                //on dessine un pion au dessus de la colonne sélectionnée
-                Vector2 posAPlacer = new Vector2(offsetX + colonnePionAPlacer * 100, 0);
-                ObjetPuissance4 pion = (joueurActuel == 1 ? pionJaune : pionRouge);
-                spriteBatch.Draw(pion.Texture, posAPlacer, Color.White);
-            }
-            else
-            {
-                string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! Appuyez sur enter pour rejouer");
-                Vector2 position = new Vector2(100, 10);
-                spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
-                
-            }
+            
 
             ////boutons
             foreach (Bouton btn in tabBoutons)
             {
                 //spriteBatch.Draw(btn.Texture, btn.Position, Color.White);
-                btn.draw(spriteBatch, textFont);
+                btn.draw(spriteBatch, textFont,menuActif);
 
             }
 

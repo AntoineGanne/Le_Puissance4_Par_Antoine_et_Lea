@@ -16,18 +16,30 @@ namespace LePuissance4ParAntoineEtLea
             joueurBot = 2;
         }
 
-        //public choixNiveau()
+        /// <summary>
+        /// permet de choisir la diificulté du bot
+        /// 1=facile
+        ///2=intermediaire
+        ///3=difficile
+        /// </summary>
+        /// <param name="numNiveau"></param>
+        public void SetDifficulte(int numNiveau)
+        {
+            difficulte = niveaux[numNiveau-1];
+        }
 
+        /// <summary>
+        /// renvoit le numero de la colonne choisie par le bot 
+        ///
+        /// </summary>
+        /// <param name="damier"></param>
+        /// <returns></returns>
         public int choixColonne(byte[,] damier)
         {
             int dimX = damier.GetLength(1);
             int dimY = damier.GetLength(0);
             Random aleatoire = new Random();
-            if (difficulte == "facile")
-            {
-
-                return aleatoire.Next(dimX);
-            }
+          
 
             switch (difficulte)
             {

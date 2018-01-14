@@ -9,12 +9,14 @@ namespace LePuissance4ParAntoineEtLea
 {
     class Bouton: ObjetPuissance4  //hérite de ObjetPuissance4
     {
-        private string texte;
-        private Boolean visible;
-        public Bouton(string texte_input,bool visible_input,Texture2D texture_input, Vector2 position_input, Vector2 size_input):base(texture_input,position_input,size_input)
+        private string texte;  //contient le texte a afficher sur le bouton + permet de retrouver l'effet de bouton
+        //private Boolean visible; //est vrai si le bouton doit etre visible par l'utilisateur
+        private bool menu;  //est vrai si le bouton fait partie du menu (et donc est faux lorsqu'il doit etre affiché durant le jeu)
+        public Bouton(string texte_input,bool menu_input,Texture2D texture_input, Vector2 position_input, Vector2 size_input):base(texture_input,position_input,size_input)
         {
             texte = texte_input;
-            visible = visible_input;
+            menu = menu_input;
+            //visible = menu_input; //car a l'initialisation de la partie les boutons du menu sont visibles et pas les autres
         }
         
         public string Texte
@@ -30,6 +32,7 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
 
+        /*
         public bool Visible
         {
             get
@@ -42,20 +45,36 @@ namespace LePuissance4ParAntoineEtLea
                 visible = value;
             }
         }
+        */
+        public bool Menu
+        {
+            get
+            {
+                return menu;
+            }
 
+            set
+            {
+                menu = value;
+            }
+        }
+        
         public bool isOver(Vector2 coord)
         {
             return !(coord.X < Position.X || coord.X > Position.X + Size.X
                      || coord.Y < Position.Y || coord.Y > Position.Y + Size.Y);
         }
 
-        public void draw(SpriteBatch sprt,SpriteFont textFont)
+        public void draw(SpriteBatch sprt,SpriteFont textFont, bool menuActif)
         {
-            if (visible)
+            // on dessine le bouton dans 2 cas:
+            //1) le bouton fait partie du menu et le menu est actif (les deux sont vrais)
+            //2) le bouton ne fait pas partie du menu et et le menu n'est pas acitf (les deux sont faux)
+            if (menu==menuActif)
             {
                 sprt.Draw(Texture, Position, Color.White);
                 string messageFin = string.Format(Texte);
-                Vector2 pos = new Vector2(Position.X + (Size.X - 14 * Texte.Length) / 2, Position.Y + 10);
+                Vector2 pos = new Vector2(Position.X + (Size.X - 11 * Texte.Length) / 2, Position.Y + 10);
                 sprt.DrawString(textFont, messageFin, pos, Color.Black);
             }
         }
