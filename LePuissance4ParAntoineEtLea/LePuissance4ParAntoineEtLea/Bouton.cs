@@ -49,5 +49,16 @@ namespace LePuissance4ParAntoineEtLea
                      || coord.Y < Position.Y || coord.Y > Position.Y + Size.Y);
         }
 
+        public void draw(SpriteBatch sprt,SpriteFont textFont)
+        {
+            if (visible)
+            {
+                sprt.Draw(Texture, Position, Color.White);
+                string messageFin = string.Format(Texte);
+                Vector2 pos = new Vector2(Position.X + (Size.X - 14 * Texte.Length) / 2, Position.Y + 10);
+                sprt.DrawString(textFont, messageFin, pos, Color.Black);
+            }
+        }
+
     }
 }
