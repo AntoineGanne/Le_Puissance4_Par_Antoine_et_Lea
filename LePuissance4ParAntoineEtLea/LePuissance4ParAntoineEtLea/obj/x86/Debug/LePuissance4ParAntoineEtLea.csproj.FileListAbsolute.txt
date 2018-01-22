@@ -41,3 +41,28 @@ D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuis
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
 D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\bouton.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\Bitmap1.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\cadre.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\jaune.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\rouge.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\bouton.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\fondecran.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\MyFont.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\sons\gagne.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\LePuissance4ParAntoineEtLea.exe
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\LePuissance4ParAntoineEtLea.pdb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.dll
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.xml
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Debug\LePuissance4ParAntoineEtLea.exe
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Debug\LePuissance4ParAntoineEtLea.pdb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Debug\Content\images\menu.xnb
+D:\Projets Github\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Debug\LePuissance4ParAntoineEtLea.csprojResolveAssemblyReference.cache

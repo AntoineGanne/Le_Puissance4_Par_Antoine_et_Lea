@@ -31,6 +31,10 @@ namespace LePuissance4ParAntoineEtLea
         private bool menuActif; //est vrai si le menu doit etre affiché
         private Bot botJeu;
         private bool tourBot; //est vrai si c'est au bot de jouer
+        private Texture2D background;
+        private Texture2D backgroundMenu;
+        private Vector2 backgroundPos = Vector2.Zero;
+        private Song song;
         
         private Bouton[] tabBoutons;  //stocke les differents boutons
 
@@ -39,6 +43,7 @@ namespace LePuissance4ParAntoineEtLea
 
         public Puissance4()
         {
+            Window.Title = "Monster 4";
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
@@ -100,9 +105,17 @@ namespace LePuissance4ParAntoineEtLea
             pionJaune = new ObjetPuissance4(Content.Load<Texture2D>("images\\jaune"), new Vector2(0f, 0f), new Vector2(100f, 100f));
             pionRouge = new ObjetPuissance4(Content.Load<Texture2D>("images\\rouge"), new Vector2(0f, 0f), new Vector2(100f, 100f));
 
+            //background
+            background = Content.Load<Texture2D>("images\\fondecran");
+            backgroundMenu = Content.Load<Texture2D>("images\\menu");
+
+
+            //sons
+            //song = Content.Load<Song>("sons\\gagne");
+
             ////boutons
-                //mise en place d'une texture de couleur unie
-            int xText = 400, yText = 100;
+            //mise en place d'une texture de couleur unie
+            int xText = 400, yText = 90;
             Texture2D texture_btn_400x200 = new Texture2D(GraphicsDevice, xText, yText);
             Color[] tabColor = new Color[xText * yText];
             for(int i = 0; i < xText * yText; ++i)
@@ -328,6 +341,11 @@ namespace LePuissance4ParAntoineEtLea
             //// dessin grille de jeu
             if (!menuActif)
             {
+
+                //background
+                spriteBatch.Draw(background, backgroundPos, Color.White);
+
+                //damier
                 for (int x = 0; x < VX; x++)
                 {
                     for (int y = 0; y < VY; y++)
@@ -362,10 +380,14 @@ namespace LePuissance4ParAntoineEtLea
                 else
                 {
                     string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! Appuyez sur enter pour rejouer");
-                    Vector2 position = new Vector2(100, 10);
-                    spriteBatch.DrawString(this.textFont, messageFin, position, Color.Black);
+                    Vector2 position = new Vector2(100, 20);
+                    spriteBatch.DrawString(this.textFont, messageFin, position, Color.White);
 
                 }
+            }else
+            {
+                //background
+                spriteBatch.Draw(backgroundMenu, backgroundPos, Color.White);
             }
 
             
@@ -377,9 +399,6 @@ namespace LePuissance4ParAntoineEtLea
                 btn.draw(spriteBatch, textFont,menuActif);
 
             }
-
-
-
 
             spriteBatch.End();
 
