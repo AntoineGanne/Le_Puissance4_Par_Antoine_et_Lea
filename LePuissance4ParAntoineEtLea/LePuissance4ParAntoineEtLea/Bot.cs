@@ -45,10 +45,11 @@ namespace LePuissance4ParAntoineEtLea
             {
                 case "facile":
                     return aleatoire.Next(dimX);
-                    break;
                 case "intermediaire":
-                    return choixBotIntermediaire(damier);
-                    break;
+                    //return choixBotIntermediaire(damier);
+                    MiniMax minmax = new MiniMax();
+                    damierMiniMax damierMM = new damierMiniMax(damier);
+                    return minmax.getMeilleureColonne(damierMM, joueurBot,6);
                 default:
                     return 0;
             }
@@ -110,7 +111,7 @@ namespace LePuissance4ParAntoineEtLea
         /// <param name="joueur"></param>
         /// <param name="damier"></param>
         /// <returns></returns>
-        private int comptePionsDirection(int xIN, int yIN, int xOffset, int yOffset, byte joueur, byte[,] damier)
+        public static int comptePionsDirection(int xIN, int yIN, int xOffset, int yOffset, byte joueur, byte[,] damier)
         {
             int nbPions = 1; //commence a 1 car le pion posé est compté d'office
 

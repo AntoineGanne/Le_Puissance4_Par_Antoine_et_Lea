@@ -40,6 +40,18 @@ namespace LePuissance4ParAntoineEtLea
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
 
+        public byte[,] Damier
+        {
+            get
+            {
+                return damier;
+            }
+
+            set
+            {
+                damier = value;
+            }
+        }
 
         public Puissance4()
         {
@@ -67,7 +79,7 @@ namespace LePuissance4ParAntoineEtLea
 
             int nbBoutons = 5;
             tabBoutons = new Bouton[nbBoutons];
-            //fonctionDeTest();
+            fonctionDeTest();
         }
 
         /// <summary>
@@ -201,6 +213,12 @@ namespace LePuissance4ParAntoineEtLea
                         bool succesPose=posePion(colonnePionAPlacer);
                         if (succesPose &&botActif && partieEnCours) tourBot = true;
                     }
+                }
+
+                if (testDamierRemplit(damier))
+                {
+                    partieEnCours = false;
+                    gagnant = 0;
                 }
             }
             else
@@ -437,6 +455,7 @@ namespace LePuissance4ParAntoineEtLea
                     Console.WriteLine("detection win...joueur " + joueur + ", colonne " + xIN + ".");
                 }
             }
+           
             return aGagne;
         }
 
@@ -471,6 +490,22 @@ namespace LePuissance4ParAntoineEtLea
             return nbPions;
         }
 
+        /// <summary>
+        ///renvoit vrai si le damier est remplit 
+        ///
+        /// </summary>
+        /// <param name="damier"></param>
+        /// <returns></returns>
+        public static bool testDamierRemplit(byte[,] damierInput)
+        {
+            foreach(byte b in damierInput)
+            {
+                if (b == 0) return false;
+            }
+            return true;
+        }
+        
+
 
 
         public void fonctionDeTest()
@@ -484,8 +519,15 @@ namespace LePuissance4ParAntoineEtLea
                 {1, 1, 0, 1, 1, 1, 1 }
             };
 
+            damierMiniMax damiertest = new damierMiniMax(damier);
+            Console.WriteLine(damiertest.Damier.ToString());
+            byte[,] damiertestnew = new byte[VY, VX];
             for (int colonne = 0; colonne < VX; colonne++)
             {
+                for(int y = 0; y < VY; y++)
+                {
+                    Console.WriteLine("(" + y + " , " + colonne + " ) =>" + damiertest.Damier[y, colonne]);
+                }
             }
 
             Console.WriteLine(VY+"  damier.GetLength(0)="+damier.GetLength(0));
