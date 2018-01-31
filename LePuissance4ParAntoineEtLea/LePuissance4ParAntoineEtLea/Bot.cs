@@ -49,7 +49,7 @@ namespace LePuissance4ParAntoineEtLea
                     //return choixBotIntermediaire(damier);
                     MiniMax minmax = new MiniMax();
                     damierMiniMax damierMM = new damierMiniMax(damier);
-                    return minmax.getMeilleureColonne(damierMM, joueurBot,6);
+                    return minmax.getMeilleureColonne(damierMM, joueurBot,4);
                 default:
                     return 0;
             }

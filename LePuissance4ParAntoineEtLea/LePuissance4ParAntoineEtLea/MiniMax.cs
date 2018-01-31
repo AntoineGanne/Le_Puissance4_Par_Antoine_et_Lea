@@ -11,14 +11,14 @@ namespace LePuissance4ParAntoineEtLea
         private const int _MAXVAL = 10000;
         private static int jeuxCalcules = 0;
 
-        public int getMeilleureColonne(damierMiniMax damier, byte numBot,int nbTours)
+        public int getMeilleureColonne(damierMiniMax damier, byte numBot,int profondeur)
         {
             List<damierMiniMax> resultats = new List<damierMiniMax>();
             int max = -_MAXVAL;
             jeuxCalcules = 0;
             foreach(damierMiniMax damierActuel in damier.GetSuccesseurs(numBot))
             {
-                int valeurFils = this.MiniVal(damierActuel, numBot,nbTours); //recursif
+                int valeurFils = this.MiniVal(damierActuel, numBot,profondeur); //recursif
                 if (valeurFils > max) //on prend la plus haute valeur
                 {
                     resultats.Clear();
@@ -40,12 +40,12 @@ namespace LePuissance4ParAntoineEtLea
         /// <param name="damierMM"></param>
         /// <param name="numBot"></param>
         /// <returns></returns>
-        private int MiniVal(damierMiniMax damierMM, byte numBot,int nbTour)
+        private int MiniVal(damierMiniMax damierMM, byte numBot,int profondeur)
         {
-            if(damierMM.EstFeuille)return damierMM.Valeur(numBot);
+            if(damierMM.EstFeuille)return damierMM.Valeur(numBot,profondeur);
             else
             {
-                if (nbTour <= 0)
+                if (profondeur <= 0)
                 {
                     return 0;
                 }
@@ -56,7 +56,7 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in damierMM.GetSuccesseurs(numHumain))
                     {
                         ++jeuxCalcules;
-                        int valeurFils = this.maxiVal(currentDamier, numBot, nbTour--);
+                        int valeurFils = this.maxiVal(currentDamier, numBot, profondeur--);
                         min = Math.Min(min, valeurFils);
                     }
                     return min;
@@ -64,12 +64,12 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
 
-        private int maxiVal(damierMiniMax damierMM,byte numBot, int nbTour)
+        private int maxiVal(damierMiniMax damierMM,byte numBot, int profondeur)
         {
-            if (damierMM.EstFeuille) return damierMM.Valeur(numBot);
+            if (damierMM.EstFeuille) return damierMM.Valeur(numBot,profondeur);
             else
             {
-                if (nbTour <= 0)
+                if (profondeur <= 0)
                 {
                     return 0;
                 }
@@ -79,7 +79,7 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in damierMM.GetSuccesseurs(numBot))
                     {
                         ++jeuxCalcules;
-                        int valeurFils = this.MiniVal(currentDamier, numBot, nbTour--);
+                        int valeurFils = this.MiniVal(currentDamier, numBot, profondeur--);
                         max = Math.Max(max, valeurFils);
                     }
                     return max;

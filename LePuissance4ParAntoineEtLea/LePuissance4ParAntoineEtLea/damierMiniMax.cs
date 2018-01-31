@@ -111,22 +111,43 @@ namespace LePuissance4ParAntoineEtLea
 
         /// <summary>
         /// retourne une valeur pour le damier.
-        /// n'a de sens que si le damier est une feuille.
+        /// a peu de sens que si le damier n'est pas une feuille. -> a ameliorer 
+        /// 
+        /// profondeur= profondeur de l'arbre pour l'algo min/max, va en descendant
+        /// ainsi une victoire apres peu de coups => grande profondeur => plus grande valeur
         /// </summary>
         /// <param name="numBot"></param>
         /// <returns></returns>
-        public int Valeur(byte numBot)
+        public int Valeur(byte numBot, int profondeur)
         {
             if (estFeuille)
             {
                 if (gagnant == 0) { return 0; }
                 else
                 {
-                    return (gagnant == numBot ? 100 : -100);
+                    int nbPions = nbPionsPlayed();
+                    // on module la valeur selon la profondeur
+                    // -> récompense mieux les victoires rapides
+                    return (int)(gagnant == numBot ? 100*profondeur : -100*profondeur);
                 }
             }
             else
                 return 0;
+        }
+
+        /// <summary>
+        /// compte le nombre de pions joués
+        /// utlisée par la fonction d'évaluation (plus maintenant)
+        /// </summary>
+        /// <returns></returns>
+        private int nbPionsPlayed()
+        {
+            int resultat = 0;
+            foreach(byte b in this.Damier)
+            {
+                if (b != 0) resultat++;
+            }
+            return resultat;
         }
 
         public byte[,] Damier
