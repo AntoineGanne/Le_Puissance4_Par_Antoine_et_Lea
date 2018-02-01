@@ -18,7 +18,7 @@ namespace LePuissance4ParAntoineEtLea
             jeuxCalcules = 0;
             foreach(damierMiniMax damierActuel in damier.GetSuccesseurs(numBot))
             {
-                int valeurFils = this.MiniVal(damierActuel, numBot,profondeur); //recursif
+                int valeurFils = this.maxiVal(damierActuel, numBot,profondeur,-_MAXVAL,_MAXVAL); //recursif
                 if (valeurFils > max) //on prend la plus haute valeur
                 {
                     resultats.Clear();
@@ -40,51 +40,57 @@ namespace LePuissance4ParAntoineEtLea
         /// <param name="damierMM"></param>
         /// <param name="numBot"></param>
         /// <returns></returns>
-        private int MiniVal(damierMiniMax damierMM, byte numBot,int profondeur)
+        private int MiniVal(damierMiniMax damierMM, byte numBot,int profondeur,int alpha,int beta)
         {
-            if(damierMM.EstFeuille)return damierMM.Valeur(numBot,profondeur);
+            byte numHumain = (byte)(numBot == 1 ? 2 : 1);
+            List<damierMiniMax> successeurs = damierMM.GetSuccesseurs(numHumain);
+            if (damierMM.EstFeuille || profondeur <= 0) return damierMM.Valeur(numBot,numHumain,profondeur,successeurs);
             else
             {
-                if (profondeur <= 0)
+                int min = _MAXVAL;
+
+                foreach (damierMiniMax currentDamier in successeurs)
                 {
-                    return 0;
-                }
-                else
-                {
-                    int min = _MAXVAL;
-                    byte numHumain = (byte)(numBot == 1 ? 2 : 1);
-                    foreach (damierMiniMax currentDamier in damierMM.GetSuccesseurs(numHumain))
+                    ++jeuxCalcules;
+                    int valeurFils = this.maxiVal(currentDamier, numBot, profondeur--,alpha,beta);
+                    
+                    min = Math.Min(min, valeurFils);
+
+                    if (alpha >= valeurFils)
                     {
-                        ++jeuxCalcules;
-                        int valeurFils = this.maxiVal(currentDamier, numBot, profondeur--);
-                        min = Math.Min(min, valeurFils);
+                        return valeurFils;
                     }
-                    return min;
+                    beta = Math.Min(beta,valeurFils);
                 }
+                return min;
             }
         }
 
-        private int maxiVal(damierMiniMax damierMM,byte numBot, int profondeur)
+        private int maxiVal(damierMiniMax damierMM,byte numBot, int profondeur, int alpha, int beta)
         {
-            if (damierMM.EstFeuille) return damierMM.Valeur(numBot,profondeur);
+            byte numHumain = (byte)(numBot == 1 ? 2 : 1);
+            List<damierMiniMax> successeurs = damierMM.GetSuccesseurs(numBot);
+            if (damierMM.EstFeuille || profondeur<=0) return damierMM.Valeur(numBot,numBot,profondeur,successeurs);
             else
             {
-                if (profondeur <= 0)
+                int max = -_MAXVAL;
+                foreach (damierMiniMax currentDamier in successeurs)
                 {
-                    return 0;
-                }
-                else
-                {
-                    int max = -_MAXVAL;
-                    foreach (damierMiniMax currentDamier in damierMM.GetSuccesseurs(numBot))
+                    ++jeuxCalcules;
+                    int valeurFils = this.MiniVal(currentDamier, numBot, profondeur--, alpha, beta);
+                    max = Math.Max(max, valeurFils);
+
+                    if (valeurFils >= beta)
                     {
-                        ++jeuxCalcules;
-                        int valeurFils = this.MiniVal(currentDamier, numBot, profondeur--);
-                        max = Math.Max(max, valeurFils);
+                        return valeurFils;
                     }
-                    return max;
+                    alpha = Math.Max(alpha, valeurFils);
+                    
                 }
+                return max;
             }
         }
+
+
     }
 }

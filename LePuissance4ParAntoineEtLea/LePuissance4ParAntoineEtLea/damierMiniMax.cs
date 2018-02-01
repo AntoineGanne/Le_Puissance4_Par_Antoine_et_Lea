@@ -15,7 +15,6 @@ namespace LePuissance4ParAntoineEtLea
         private int colonneJouee;
         private byte gagnant;
         private bool estFeuille ;
-
         
 
         public damierMiniMax(byte[,] damier_input)
@@ -30,7 +29,6 @@ namespace LePuissance4ParAntoineEtLea
             }
             gagnant = 0;
             estFeuille = false;
-           
         }
 
         public List<damierMiniMax> GetSuccesseurs(byte joueur)
@@ -118,22 +116,37 @@ namespace LePuissance4ParAntoineEtLea
         /// </summary>
         /// <param name="numBot"></param>
         /// <returns></returns>
-        public int Valeur(byte numBot, int profondeur)
+        public int Valeur(byte numBot,byte numJoueurActuel, int profondeur, List<damierMiniMax> listeFils)
         {
+            // la valeur des feuilles n'est pas sensé etre utile, elle est laissée pour l'instant pour eviter des instabilitées.
             if (estFeuille)
             {
                 if (gagnant == 0) { return 0; }
                 else
                 {
-                    int nbPions = nbPionsPlayed();
-                    // on module la valeur selon la profondeur
-                    // -> récompense mieux les victoires rapides
-                    return (int)(gagnant == numBot ? 100*profondeur : -100*profondeur);
+                   
+                    // on cherche avant tout a recompenser les victoires assurées
+                    return(int)(gagnant == numBot ? 0 : -10*profondeur);
+                    
                 }
             }
             else
-                return 0;
+            {
+                //ici, on rentre deans le if si c'est au tour du bot de jouer
+                if (numJoueurActuel == numBot)
+                {
+                    byte numHumain = (byte)(numBot == 1 ? 2 : 1);
+                    //si le bot perds qu'importe le pion joué
+                    if (nePeutQuePerdre(numHumain, listeFils)) return -profondeur; 
+                }
+                else
+                {
+                    if (nePeutQuePerdre(numBot, listeFils)) return profondeur;
+                }
+            }
+            return 0;
         }
+
 
         /// <summary>
         /// compte le nombre de pions joués
@@ -149,6 +162,31 @@ namespace LePuissance4ParAntoineEtLea
             }
             return resultat;
         }
+
+
+        /// <summary>
+        /// renvoit vrai si le joueur(qui joue contre numAdversaire) perd qu'importe le pion qu'il joue
+        /// </summary>
+        /// <param name="numJoueur"></param>
+        /// <returns></returns>
+        private bool nePeutQuePerdre(byte numAdversaire, List<damierMiniMax> listeFils)
+        {
+            bool res = false;
+            //si on trouve au moins deux colonnes perdants alors il ne peut pas empecher sa defaite
+            int nbColonnesPerdantes = 0;
+            //byte numAdversaire = (byte)(numJoueur == 1 ? 2 : 1);
+            foreach(damierMiniMax fils in listeFils)
+            {
+                if (fils.estFeuille && fils.gagnant == numAdversaire)
+                {
+                    nbColonnesPerdantes++;
+                    if (nbColonnesPerdantes >= 2) return true;
+                }
+            }
+
+            return res;
+        }
+        
 
         public byte[,] Damier
         {
@@ -202,6 +240,6 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
 
-      
+     
     }
 }
