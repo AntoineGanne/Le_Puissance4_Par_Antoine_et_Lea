@@ -25,6 +25,7 @@ namespace LePuissance4ParAntoineEtLea
         /// <param name="numNiveau"></param>
         public void SetDifficulte(int numNiveau)
         {
+            
             difficulte = niveaux[numNiveau-1];
         }
 
@@ -46,7 +47,8 @@ namespace LePuissance4ParAntoineEtLea
                 case "facile":
                     return aleatoire.Next(dimX);
                 case "intermediaire":
-                    //return choixBotIntermediaire(damier);
+                    return choixBotIntermediaire(damier);
+                case "difficile":
                     MiniMax minmax = new MiniMax();
                     damierMiniMax damierMM = new damierMiniMax(damier);
                     return minmax.getMeilleureColonne(damierMM, joueurBot,6);

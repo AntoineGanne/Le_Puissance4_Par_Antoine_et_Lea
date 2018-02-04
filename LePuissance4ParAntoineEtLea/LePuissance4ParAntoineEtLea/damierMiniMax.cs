@@ -60,10 +60,11 @@ namespace LePuissance4ParAntoineEtLea
                 {
                     y++;
                 }
-                damier[y - 1, colonne] = joueur;
+                y--;
+                damier[y, colonne] = joueur;
 
                 //on fait le test de feuille maintenant, pour se simplifier la tache apres
-                estFeuille=testFeuille(colonne, joueur);
+                estFeuille=testFeuille(colonne,y, joueur);
                 return true;
                 
             }
@@ -79,14 +80,10 @@ namespace LePuissance4ParAntoineEtLea
         /// <param name="colonne"></param>
         /// <param name="joueur"></param>
         /// <returns></returns>
-        public bool testFeuille(int colonne,byte joueur)
+        public bool testFeuille(int colonne,int y,byte joueur)
         {
             bool resultat = false;
-            int y = -1;
-            while (y + 1 < VY && damier[y + 1, colonne] == 0)
-            {
-                y++;
-            }
+            
             int xOffset = 0;
             int yOffset = 1;
             int nbPions = Bot.comptePionsDirection(colonne, y, xOffset, yOffset, joueur, damier);
@@ -121,14 +118,16 @@ namespace LePuissance4ParAntoineEtLea
             // la valeur des feuilles n'est pas sensé etre utile, elle est laissée pour l'instant pour eviter des instabilitées.
             if (estFeuille)
             {
+                return 0;
+                /*
                 if (gagnant == 0) { return 0; }
                 else
                 {
-                   
                     // on cherche avant tout a recompenser les victoires assurées
                     return(int)(gagnant == numBot ? 0 : -10*profondeur);
                     
                 }
+                */
             }
             else
             {
@@ -169,9 +168,8 @@ namespace LePuissance4ParAntoineEtLea
         /// </summary>
         /// <param name="numJoueur"></param>
         /// <returns></returns>
-        private bool nePeutQuePerdre(byte numAdversaire, List<damierMiniMax> listeFils)
+        public bool nePeutQuePerdre(byte numAdversaire, List<damierMiniMax> listeFils)
         {
-            bool res = false;
             //si on trouve au moins deux colonnes perdants alors il ne peut pas empecher sa defaite
             int nbColonnesPerdantes = 0;
             //byte numAdversaire = (byte)(numJoueur == 1 ? 2 : 1);
@@ -184,7 +182,7 @@ namespace LePuissance4ParAntoineEtLea
                 }
             }
 
-            return res;
+            return false;
         }
         
 

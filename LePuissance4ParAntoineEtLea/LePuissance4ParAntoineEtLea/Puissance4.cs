@@ -77,7 +77,7 @@ namespace LePuissance4ParAntoineEtLea
             tourBot = false;
             menuActif = true;
 
-            int nbBoutons = 5;
+            int nbBoutons = 6;
             tabBoutons = new Bouton[nbBoutons];
             fonctionDeTest();
         }
@@ -142,22 +142,20 @@ namespace LePuissance4ParAntoineEtLea
             tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x200, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 200f));
 
             // boutons du menu
-            int nbBoutonsMenu = 3;
+            int nbBoutonsMenu = 4;
             int yOffset = (920 - nbBoutonsMenu * yText) / (nbBoutonsMenu + 1);
             int yPos = yOffset;
-            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x200, new Vector2((1024/2- xText / 2), yPos), new Vector2(400f, 200f));
+            int xPos = (1024* 3/4 - xText / 2);
+            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
             yPos += yOffset + yText;
-            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x200, new Vector2((1024 / 2 - xText / 2), yPos), new Vector2(400f, 200f));
+            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
             yPos += yOffset + yText;
-            tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x200, new Vector2((1024 / 2 - xText / 2), yPos), new Vector2(400f, 200f));
+            tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
+            yPos += yOffset + yText;
+            tabBoutons[5] = new Bouton("Jouer contre le bot difficile", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
 
 
 
-            /*
-            tabBoutons[0] = new Bouton("Rejouer", true, Content.Load<Texture2D>("images\\bouton"), new Vector2(0, 920-200), new Vector2(600f, 150f));
-            tabBoutons[1]=new Bouton("Retour Menu",true, Content.Load<Texture2D>("images\\bouton"), new Vector2((1024 - 600), 920 - 200), new Vector2(600f, 150f));
-            
-            */
 
 
         }
@@ -269,6 +267,13 @@ namespace LePuissance4ParAntoineEtLea
                                 tourBot = false;
                                 menuActif = false;
                                 botJeu.SetDifficulte(2);
+                                nouvellePartie();
+                                break;
+                            case "Jouer contre le bot difficile":
+                                botActif = true;
+                                tourBot = false;
+                                menuActif = false;
+                                botJeu.SetDifficulte(3);
                                 nouvellePartie();
                                 break;
                             default:
@@ -514,14 +519,18 @@ namespace LePuissance4ParAntoineEtLea
                 {0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0 },
-                {0, 0, 0, 0, 0, 0, 0 },
-                {0, 0, 0, 2, 2, 0, 2 },
-                {1, 1, 0, 1, 1, 1, 1 }
+                {0, 0, 0, 2, 0, 0, 0 },
+                {2, 0, 0, 2, 1, 0, 0 },
+                {1, 0, 2, 1, 1, 0, 0 }
             };
 
             damierMiniMax damiertest = new damierMiniMax(damier);
             Console.WriteLine(damiertest.Damier.ToString());
             byte[,] damiertestnew = new byte[VY, VX];
+
+            damierMiniMax damierMM = new damierMiniMax(damier);
+            damierMM.GetSuccesseurs(1);
+            /*
             for (int colonne = 0; colonne < VX; colonne++)
             {
                 for(int y = 0; y < VY; y++)
@@ -532,6 +541,7 @@ namespace LePuissance4ParAntoineEtLea
 
             Console.WriteLine(VY+"  damier.GetLength(0)="+damier.GetLength(0));
             Console.WriteLine(VX+"  damier.GetLength(1)=" + damier.GetLength(1));
+            */
         }
     }
 }
