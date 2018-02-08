@@ -247,8 +247,8 @@ namespace LePuissance4ParAntoineEtLea
                                 nouvellePartie();
                                 break;
                             case "Retour Menu":
-                                menuActif = true;
                                 nouvellePartie();
+                                menuActif = true;
                                 break;
                             case "Jouer entre humains":
                                 botActif = false;

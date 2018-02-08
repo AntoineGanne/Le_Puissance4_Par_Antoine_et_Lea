@@ -66,14 +66,16 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in successeurs)
                     {
                         ++jeuxCalcules;
-                        int valeurFils = this.maxiVal(currentDamier, numBot, profondeur--, alpha, beta);
-
+                         //profondeur--;
+                        int valeurFils = this.maxiVal(currentDamier, numBot, --profondeur, alpha, beta);
+                        
                         min = Math.Min(min, valeurFils);
-
+                        
                         if (alpha >= valeurFils)
                         {
-                            return valeurFils;
+                           return valeurFils;
                         }
+                        
                         beta = Math.Min(beta, valeurFils);
                     }
                     return min;
@@ -99,7 +101,8 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in successeurs)
                     {
                         ++jeuxCalcules;
-                        int valeurFils = this.MiniVal(currentDamier, numBot, profondeur--, alpha, beta);
+                        //profondeur--;
+                        int valeurFils = this.MiniVal(currentDamier, numBot, --profondeur, alpha, beta);
                         max = Math.Max(max, valeurFils);
 
                         if (valeurFils >= beta)

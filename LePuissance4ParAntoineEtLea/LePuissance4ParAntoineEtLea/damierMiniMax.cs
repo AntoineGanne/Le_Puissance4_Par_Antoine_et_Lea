@@ -119,15 +119,6 @@ namespace LePuissance4ParAntoineEtLea
             if (estFeuille)
             {
                 return 0;
-                /*
-                if (gagnant == 0) { return 0; }
-                else
-                {
-                    // on cherche avant tout a recompenser les victoires assurées
-                    return(int)(gagnant == numBot ? 0 : -10*profondeur);
-                    
-                }
-                */
             }
             else
             {
@@ -147,21 +138,7 @@ namespace LePuissance4ParAntoineEtLea
         }
 
 
-        /// <summary>
-        /// compte le nombre de pions joués
-        /// utlisée par la fonction d'évaluation (plus maintenant)
-        /// </summary>
-        /// <returns></returns>
-        private int nbPionsPlayed()
-        {
-            int resultat = 0;
-            foreach(byte b in this.Damier)
-            {
-                if (b != 0) resultat++;
-            }
-            return resultat;
-        }
-
+      
 
         /// <summary>
         /// renvoit vrai si le joueur(qui joue contre numAdversaire) perd qu'importe le pion qu'il joue
