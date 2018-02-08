@@ -51,7 +51,7 @@ namespace LePuissance4ParAntoineEtLea
                 case "difficile":
                     MiniMax minmax = new MiniMax();
                     damierMiniMax damierMM = new damierMiniMax(damier);
-                    return minmax.getMeilleureColonne(damierMM, joueurBot,6);
+                    return minmax.getMeilleureColonne(damierMM, joueurBot,10);
                 default:
                     return 0;
             }

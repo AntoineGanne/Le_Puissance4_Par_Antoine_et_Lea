@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\Bitmap1.xnb</Output>
-      <Time>2017-12-29T00:08:26.3784225+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\Bitmap1.xnb</Output>
+      <Time>2018-01-22T21:14:33.4580134+01:00</Time>
     </Item>
     <Item>
       <Source>images\cadre.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\cadre.xnb</Output>
-      <Time>2017-12-29T00:08:26.3789243+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\cadre.xnb</Output>
+      <Time>2018-01-22T21:14:33.4625166+01:00</Time>
     </Item>
     <Item>
       <Source>images\jaune.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\jaune.xnb</Output>
-      <Time>2017-12-29T00:08:26.3799269+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\jaune.xnb</Output>
+      <Time>2018-01-22T21:14:33.4645313+01:00</Time>
     </Item>
     <Item>
       <Source>images\rouge.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\rouge.xnb</Output>
-      <Time>2017-12-29T00:08:26.3804279+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\rouge.xnb</Output>
+      <Time>2018-01-22T21:14:33.4675201+01:00</Time>
     </Item>
     <Item>
       <Source>images\bouton.png</Source>
@@ -43,8 +43,26 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\bouton.xnb</Output>
-      <Time>2018-01-10T18:43:37.2185222+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\bouton.xnb</Output>
+      <Time>2018-01-22T21:14:33.4595145+01:00</Time>
+    </Item>
+    <Item>
+      <Source>images\menu.png</Source>
+      <Name>images\menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\menu.xnb</Output>
+      <Time>2018-01-22T21:14:33.4665211+01:00</Time>
+    </Item>
+    <Item>
+      <Source>images\fondecran.jpg</Source>
+      <Name>images\fondecran</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\images\fondecran.xnb</Output>
+      <Time>2018-01-22T21:14:33.4635173+01:00</Time>
     </Item>
     <Item>
       <Source>MyFont.spritefont</Source>
@@ -52,8 +70,17 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\MyFont.xnb</Output>
-      <Time>2017-12-29T00:08:26.3769371+01:00</Time>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\MyFont.xnb</Output>
+      <Time>2018-01-22T21:14:33.4535102+01:00</Time>
+    </Item>
+    <Item>
+      <Source>sons\gagne.wav</Source>
+      <Name>sons\gagne</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\sons\gagne.xnb</Output>
+      <Time>2018-01-22T21:14:33.4799186+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -62,10 +89,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Release</BuildConfiguration>
       <CompressContent>true</CompressContent>
-      <RootDirectory>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\</RootDirectory>
-      <LoggerRootDirectory>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Release\</IntermediateDirectory>
-      <OutputDirectory>D:\coding\c#\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\</OutputDirectory>
+      <RootDirectory>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLeaContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>D:\Le_Puissance4_Par_Antoine_et_Lea\LePuissance4ParAntoineEtLea\LePuissance4ParAntoineEtLea\bin\x86\Release\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -93,8 +120,8 @@
         <Value>2011-09-01T17:22:30+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2017-12-07T09:36:26.6700084+01:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2018-01-22T21:11:18.2318289+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
