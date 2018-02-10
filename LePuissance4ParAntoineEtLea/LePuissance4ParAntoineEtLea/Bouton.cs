@@ -10,13 +10,11 @@ namespace LePuissance4ParAntoineEtLea
     class Bouton: ObjetPuissance4  //hérite de ObjetPuissance4
     {
         private string texte;  //contient le texte a afficher sur le bouton + permet de retrouver l'effet de bouton
-        //private Boolean visible; //est vrai si le bouton doit etre visible par l'utilisateur
         private bool menu;  //est vrai si le bouton fait partie du menu (et donc est faux lorsqu'il doit etre affiché durant le jeu)
         public Bouton(string texte_input,bool menu_input,Texture2D texture_input, Vector2 position_input, Vector2 size_input):base(texture_input,position_input,size_input)
         {
             texte = texte_input;
             menu = menu_input;
-            //visible = menu_input; //car a l'initialisation de la partie les boutons du menu sont visibles et pas les autres
         }
         
         public string Texte
@@ -32,20 +30,7 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
 
-        /*
-        public bool Visible
-        {
-            get
-            {
-                return visible;
-            }
-
-            set
-            {
-                visible = value;
-            }
-        }
-        */
+        
         public bool Menu
         {
             get

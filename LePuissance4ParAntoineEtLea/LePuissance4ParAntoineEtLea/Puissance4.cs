@@ -20,7 +20,7 @@ namespace LePuissance4ParAntoineEtLea
         private SpriteFont textFont;
         SpriteBatch spriteBatch;
         private byte[,] damier;
-        private ObjetPuissance4 cadre, pionJaune, pionRouge;
+        private ObjetPuissance4 cadre, pionJaune, pionRouge,touchesClavier;
         private const int VX = 7;
         private const int VY = 6;
         private int colonnePionAPlacer;  //la colonne selectionnée pour poser un pion
@@ -40,18 +40,7 @@ namespace LePuissance4ParAntoineEtLea
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
 
-        public byte[,] Damier
-        {
-            get
-            {
-                return damier;
-            }
-
-            set
-            {
-                damier = value;
-            }
-        }
+        
 
         public Puissance4()
         {
@@ -116,6 +105,7 @@ namespace LePuissance4ParAntoineEtLea
             cadre = new ObjetPuissance4(Content.Load<Texture2D>("images\\cadre"), new Vector2(0f, 0f), new Vector2(100f, 100f));
             pionJaune = new ObjetPuissance4(Content.Load<Texture2D>("images\\jaune"), new Vector2(0f, 0f), new Vector2(100f, 100f));
             pionRouge = new ObjetPuissance4(Content.Load<Texture2D>("images\\rouge"), new Vector2(0f, 0f), new Vector2(100f, 100f));
+            touchesClavier= new ObjetPuissance4(Content.Load<Texture2D>("images\\touchesClavier"), new Vector2(50, 600), new Vector2(534f, 203f));
 
             //background
             background = Content.Load<Texture2D>("images\\fondecran");
@@ -137,7 +127,7 @@ namespace LePuissance4ParAntoineEtLea
             texture_btn_400x200.SetData(tabColor,0, xText * yText);
 
 
-
+            // boutons de jeu
             tabBoutons[0] = new Bouton("Rejouer",false, texture_btn_400x200, new Vector2((1024/4)-xText/2, 920 - yText-50), new Vector2(400f, 200f));
             tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x200, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 200f));
 
@@ -247,7 +237,6 @@ namespace LePuissance4ParAntoineEtLea
                                 nouvellePartie();
                                 break;
                             case "Retour Menu":
-                                nouvellePartie();
                                 menuActif = true;
                                 break;
                             case "Jouer entre humains":
@@ -407,10 +396,14 @@ namespace LePuissance4ParAntoineEtLea
                     spriteBatch.DrawString(this.textFont, messageFin, position, Color.White);
 
                 }
-            }else
+            }
+            else
             {
                 //background
                 spriteBatch.Draw(backgroundMenu, backgroundPos, Color.White);
+
+                //fleches
+                spriteBatch.Draw(touchesClavier.Texture, touchesClavier.Position, Color.White);
             }
 
             
@@ -418,7 +411,7 @@ namespace LePuissance4ParAntoineEtLea
             ////boutons
             foreach (Bouton btn in tabBoutons)
             {
-                //spriteBatch.Draw(btn.Texture, btn.Position, Color.White);
+
                 btn.draw(spriteBatch, textFont,menuActif);
 
             }
