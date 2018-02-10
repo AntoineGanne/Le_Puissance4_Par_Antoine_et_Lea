@@ -39,7 +39,7 @@ namespace LePuissance4ParAntoineEtLea
         private Bouton[] tabBoutons;  //stocke les differents boutons
 
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
-
+        private MouseState oldMouseState; // stocke l'etat de la souris de la frame précedente
         
 
         public Puissance4()
@@ -118,31 +118,31 @@ namespace LePuissance4ParAntoineEtLea
             ////boutons
             //mise en place d'une texture de couleur unie
             int xText = 400, yText = 90;
-            Texture2D texture_btn_400x200 = new Texture2D(GraphicsDevice, xText, yText);
+            Texture2D texture_btn_400x90 = new Texture2D(GraphicsDevice, xText, yText);
             Color[] tabColor = new Color[xText * yText];
             for(int i = 0; i < xText * yText; ++i)
             {
                 tabColor[i] = Color.CadetBlue;
             }
-            texture_btn_400x200.SetData(tabColor,0, xText * yText);
+            texture_btn_400x90.SetData(tabColor,0, xText * yText);
 
 
             // boutons de jeu
-            tabBoutons[0] = new Bouton("Rejouer",false, texture_btn_400x200, new Vector2((1024/4)-xText/2, 920 - yText-50), new Vector2(400f, 200f));
-            tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x200, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 200f));
+            tabBoutons[0] = new Bouton("Rejouer",false, texture_btn_400x90, new Vector2((1024/4)-xText/2, 920 - yText-50), new Vector2(400f, 90f));
+            tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x90, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 90f));
 
             // boutons du menu
             int nbBoutonsMenu = 4;
             int yOffset = (920 - nbBoutonsMenu * yText) / (nbBoutonsMenu + 1);
             int yPos = yOffset;
             int xPos = (1024* 3/4 - xText / 2);
-            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
+            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f,90f));
             yPos += yOffset + yText;
-            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
+            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
             yPos += yOffset + yText;
-            tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
+            tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
             yPos += yOffset + yText;
-            tabBoutons[5] = new Bouton("Jouer contre le bot difficile", true, texture_btn_400x200, new Vector2(xPos, yPos), new Vector2(400f, 200f));
+            tabBoutons[5] = new Bouton("Jouer contre le bot difficile", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
 
 
 
@@ -217,18 +217,25 @@ namespace LePuissance4ParAntoineEtLea
 
                 }
             }
-            
-            oldState = keyboard;
+
+            // ajout du controle V afin de tester le retour menu
+            if (keyboard.IsKeyDown(Keys.V) && !oldState.IsKeyDown(Keys.V))
+            {
+                menuActif = !menuActif;
+            }
+
+                oldState = keyboard;
 
 
             //// interactions souris
-            foreach(Bouton btn in tabBoutons)
+            bool etatMenu = menuActif;
+            foreach (Bouton btn in tabBoutons)
             {
                 // on détermine si le bouton est visible selon menuActif et la proprieté menu du bouton
-                bool visible = menuActif ? btn.Menu : !btn.Menu;
+                bool visible = etatMenu ? btn.Menu : !btn.Menu;
                 if (btn.isOver(new Vector2(Mouse.GetState().X, Mouse.GetState().Y)) && visible)
                 {
-                    if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed && oldMouseState.LeftButton !=ButtonState.Pressed  )
                     {
                         //il faut prévoir l'action a effectuer pour chaque bouton
                         switch (btn.Texte)
@@ -258,6 +265,7 @@ namespace LePuissance4ParAntoineEtLea
                                 botJeu.SetDifficulte(2);
                                 nouvellePartie();
                                 break;
+                                
                             case "Jouer contre le bot difficile":
                                 botActif = true;
                                 tourBot = false;
@@ -265,13 +273,14 @@ namespace LePuissance4ParAntoineEtLea
                                 botJeu.SetDifficulte(3);
                                 nouvellePartie();
                                 break;
+                                
                             default:
                                 break;
                         }
                     }
                 }
             }
-
+            oldMouseState = Mouse.GetState();
         }
 
         /// <summary>
