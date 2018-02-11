@@ -19,8 +19,8 @@ namespace LePuissance4ParAntoineEtLea
         /// <summary>
         /// permet de choisir la diificulté du bot
         /// 1=facile
-        ///2=intermediaire
-        ///3=difficile
+        /// 2=intermediaire
+        /// 3=difficile
         /// </summary>
         /// <param name="numNiveau"></param>
         public void SetDifficulte(int numNiveau)
@@ -41,7 +41,7 @@ namespace LePuissance4ParAntoineEtLea
             int dimY = damier.GetLength(0);
             Random aleatoire = new Random();
           
-
+            // sélection de la colonne selon la difficulté
             switch (difficulte)
             {
                 case "facile":
@@ -58,7 +58,9 @@ namespace LePuissance4ParAntoineEtLea
         }
 
         /// <summary>
-        /// 
+        /// Cherche une colonne qui lui permet de gagner ou d'empecher l'adversaire de gagner
+        /// au prochain tour.
+        /// Sinon, joue aléatoirement.
         /// </summary>
         /// <param name="damier"></param>
         /// <returns></returns>
@@ -104,7 +106,8 @@ namespace LePuissance4ParAntoineEtLea
         }
 
         /// <summary>
-        /// compte les pions d'un meme joueur autours d'une position donnée et selon une direction donnée par xOffset et yOffset
+        /// compte les pions d'un meme joueur autours d'une position donnée et selon une direction donnée par xOffset et yOffset.
+        /// Sert a tester l'alignement de 4 pions. 
         /// </summary>
         /// <param name="xIN"></param>
         /// <param name="yIN"></param>

@@ -19,7 +19,7 @@ namespace LePuissance4ParAntoineEtLea
         GraphicsDeviceManager graphics;
         private SpriteFont textFont;
         SpriteBatch spriteBatch;
-        private byte[,] damier;
+        private byte[,] damier;  //stocke l'emplacement des pions
         private ObjetPuissance4 cadre, pionJaune, pionRouge,touchesClavier;
         private const int VX = 7;
         private const int VY = 6;
@@ -29,15 +29,17 @@ namespace LePuissance4ParAntoineEtLea
         private bool partieEnCours; //est vrai si une partie est en cours
         private bool botActif; //est vrai si le joueur affronte un bot
         private bool menuActif; //est vrai si le menu doit etre affiché
-        private Bot botJeu;
+        private Bot botJeu;  
         private bool tourBot; //est vrai si c'est au bot de jouer
-        private Texture2D background;
-        private Texture2D backgroundMenu;
+        private Texture2D background;      // les images de fond du jeu
+        private Texture2D backgroundMenu;  // idem
         private Vector2 backgroundPos = Vector2.Zero;
-        private Song song;
-        
+        private SoundEffect effect; // un son de fin de jeu 
+                
         private Bouton[] tabBoutons;  //stocke les differents boutons
 
+        // on stocke les etats précedent du clavier et de la souris afin d'eviter que les elements 
+        // interactifs soient activés plusieurs fois par clics
         private KeyboardState oldState;  // stocke l'etat du clavier de la frame précedente
         private MouseState oldMouseState; // stocke l'etat de la souris de la frame précedente
         
@@ -68,7 +70,10 @@ namespace LePuissance4ParAntoineEtLea
 
             int nbBoutons = 6;
             tabBoutons = new Bouton[nbBoutons];
-            fonctionDeTest();
+
+            //fonctionDeTest();  //decommenter pour que les tests soient effetués au lancement du jeu
+
+            
         }
 
         /// <summary>
@@ -95,6 +100,7 @@ namespace LePuissance4ParAntoineEtLea
 
             // TODO: use this.Content to load your game content here
 
+            // résolution du jeu
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 920;
             graphics.ApplyChanges();
@@ -113,41 +119,38 @@ namespace LePuissance4ParAntoineEtLea
 
 
             //sons
-            //song = Content.Load<Song>("sons\\gagne");
+            effect = Content.Load<SoundEffect>("sons\\gagne");
+
 
             ////boutons
             //mise en place d'une texture de couleur unie
             int xText = 400, yText = 90;
             Texture2D texture_btn_400x90 = new Texture2D(GraphicsDevice, xText, yText);
             Color[] tabColor = new Color[xText * yText];
-            for(int i = 0; i < xText * yText; ++i)
+            for (int i = 0; i < xText * yText; ++i)
             {
                 tabColor[i] = Color.CadetBlue;
             }
-            texture_btn_400x90.SetData(tabColor,0, xText * yText);
+            texture_btn_400x90.SetData(tabColor, 0, xText * yText);
 
 
             // boutons de jeu
-            tabBoutons[0] = new Bouton("Rejouer",false, texture_btn_400x90, new Vector2((1024/4)-xText/2, 920 - yText-50), new Vector2(400f, 90f));
-            tabBoutons[1] = new Bouton("Retour Menu",false, texture_btn_400x90, new Vector2((1024*3/4 - xText/2), 920 - yText-50), new Vector2(400f, 90f));
+            tabBoutons[0] = new Bouton("Rejouer", false, texture_btn_400x90, new Vector2((1024 / 4) - xText / 2, 920 - yText - 50), new Vector2(400f, 90f));
+            tabBoutons[1] = new Bouton("Retour Menu", false, texture_btn_400x90, new Vector2((1024 * 3 / 4 - xText / 2), 920 - yText - 50), new Vector2(400f, 90f));
 
             // boutons du menu
             int nbBoutonsMenu = 4;
             int yOffset = (920 - nbBoutonsMenu * yText) / (nbBoutonsMenu + 1);
             int yPos = yOffset;
-            int xPos = (1024* 3/4 - xText / 2);
-            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f,90f));
+            int xPos = (1024 * 3 / 4 - xText / 2);
+            tabBoutons[2] = new Bouton("Jouer entre humains", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
             yPos += yOffset + yText;
-            tabBoutons[3] = new Bouton("Jouer contre le bot facile",  true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
+            tabBoutons[3] = new Bouton("Jouer contre le bot facile", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
             yPos += yOffset + yText;
             tabBoutons[4] = new Bouton("Jouer contre le bot intermediaire", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
             yPos += yOffset + yText;
             tabBoutons[5] = new Bouton("Jouer contre le bot difficile", true, texture_btn_400x90, new Vector2(xPos, yPos), new Vector2(400f, 90f));
-
-
-
-
-
+            
         }
 
         /// <summary>
@@ -218,17 +221,12 @@ namespace LePuissance4ParAntoineEtLea
                 }
             }
 
-            // ajout du controle V afin de tester le retour menu
-            if (keyboard.IsKeyDown(Keys.V) && !oldState.IsKeyDown(Keys.V))
-            {
-                menuActif = !menuActif;
-            }
-
-                oldState = keyboard;
+            
+            oldState = keyboard;
 
 
             //// interactions souris
-            bool etatMenu = menuActif;
+            bool etatMenu = menuActif; // on stocke l'etat actuel du menu car il peut changer durant le foreach
             foreach (Bouton btn in tabBoutons)
             {
                 // on détermine si le bouton est visible selon menuActif et la proprieté menu du bouton
@@ -333,6 +331,9 @@ namespace LePuissance4ParAntoineEtLea
                 {
                     gagnant = joueurActuel;
                     partieEnCours = false;
+
+                    // effet sonore de fin de partie
+                    effect.Play();
                 }
 
 
@@ -400,13 +401,13 @@ namespace LePuissance4ParAntoineEtLea
                 }
                 else
                 {
-                    string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "jaune" : "rouge") + " est le gagnant! Appuyez sur enter pour rejouer");
+                    string messageFin = string.Format("C'est fini! Le joueur " + (gagnant == 1 ? "vert" : "rouge") + " est le gagnant! Appuyez sur Enter pour rejouer");
                     Vector2 position = new Vector2(100, 20);
                     spriteBatch.DrawString(this.textFont, messageFin, position, Color.White);
 
                 }
             }
-            else
+            else  // dans le menu principal
             {
                 //background
                 spriteBatch.Draw(backgroundMenu, backgroundPos, Color.White);
@@ -514,7 +515,9 @@ namespace LePuissance4ParAntoineEtLea
         
 
 
-
+        /// <summary>
+        /// fonction servant a faire des tests rapides.
+        /// </summary>
         public void fonctionDeTest()
         {
             damier = new byte[VY, VX]{
@@ -532,7 +535,7 @@ namespace LePuissance4ParAntoineEtLea
 
             damierMiniMax damierMM = new damierMiniMax(damier);
             damierMM.GetSuccesseurs(1);
-            /*
+            
             for (int colonne = 0; colonne < VX; colonne++)
             {
                 for(int y = 0; y < VY; y++)
@@ -543,7 +546,7 @@ namespace LePuissance4ParAntoineEtLea
 
             Console.WriteLine(VY+"  damier.GetLength(0)="+damier.GetLength(0));
             Console.WriteLine(VX+"  damier.GetLength(1)=" + damier.GetLength(1));
-            */
+            
         }
     }
 }

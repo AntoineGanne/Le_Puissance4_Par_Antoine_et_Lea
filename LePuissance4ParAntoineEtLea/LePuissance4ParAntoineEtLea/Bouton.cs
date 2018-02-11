@@ -44,12 +44,23 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
         
+        /// <summary>
+        /// retourne vrai si la position donnée en paramètre est au dessus du bouton
+        /// </summary>
+        /// <param name="coord"></param>
+        /// <returns></returns>
         public bool isOver(Vector2 coord)
         {
             return !(coord.X < Position.X || coord.X > Position.X + Size.X
                      || coord.Y < Position.Y || coord.Y > Position.Y + Size.Y);
         }
 
+        /// <summary>
+        /// dessine le bouton: on dessine la texture du bouton puis on ajoute le texte par dessus
+        /// </summary>
+        /// <param name="sprt"></param>
+        /// <param name="textFont"></param>
+        /// <param name="menuActif"></param>
         public void draw(SpriteBatch sprt,SpriteFont textFont, bool menuActif)
         {
             // on dessine le bouton dans 2 cas:

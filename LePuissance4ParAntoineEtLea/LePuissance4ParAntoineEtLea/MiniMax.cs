@@ -8,9 +8,18 @@ namespace LePuissance4ParAntoineEtLea
     class MiniMax
     {
 
-        private const int _MAXVAL = 10000;
-        private static int jeuxCalcules = 0;
+        private const int _MAXVAL = 1000;   // sert a initiliser les valeurs des min et max.
+        private static int jeuxCalcules = 0;  //sert a compter le nombre d'itérations des fonctions min max
 
+        /// <summary>
+        /// appelle l'algorithme min max sur le damier passé en paramètre.
+        /// Avant cela, On verifie les successeurs pour le cas ou l'on peut gagner tout de suite ou le cas où
+        /// l'adversaire peut gagner au prochain tour
+        /// </summary>
+        /// <param name="damier"></param>
+        /// <param name="numBot"></param>
+        /// <param name="profondeur"></param>
+        /// <returns></returns>
         public int getMeilleureColonne(damierMiniMax damier, byte numBot,int profondeur)
         {
             List<damierMiniMax> resultats = new List<damierMiniMax>();
@@ -42,7 +51,9 @@ namespace LePuissance4ParAntoineEtLea
         
 
         /// <summary>
-        /// get the mini value
+        /// get the mini value.
+        /// C'est la partie min de l'algo min max.
+        /// 
         /// </summary>
         /// <param name="damierMM"></param>
         /// <param name="numBot"></param>
@@ -56,7 +67,6 @@ namespace LePuissance4ParAntoineEtLea
             {
                 if (damierMM.nePeutQuePerdre(numHumain,successeurs))
                 {
-                    //Console.WriteLine("detection de victoire assurée par l'humain, profondeur=" + profondeur);
                     return profondeur;
                 }
                 else
@@ -66,11 +76,12 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in successeurs)
                     {
                         ++jeuxCalcules;
-                         //profondeur--;
-                        int valeurFils = this.maxiVal(currentDamier, numBot, --profondeur, alpha, beta);
+                         profondeur--;
+                        int valeurFils = this.maxiVal(currentDamier, numBot, profondeur, alpha, beta);
                         
                         min = Math.Min(min, valeurFils);
                         
+                        //coupure alpha
                         if (alpha >= valeurFils)
                         {
                            return valeurFils;
@@ -83,6 +94,16 @@ namespace LePuissance4ParAntoineEtLea
             }
         }
 
+        /// <summary>
+        /// get the maxi value.
+        /// C'est la partie max de l'algo min max.
+        /// </summary>
+        /// <param name="damierMM"></param>
+        /// <param name="numBot"></param>
+        /// <param name="profondeur"></param>
+        /// <param name="alpha"></param>
+        /// <param name="beta"></param>
+        /// <returns></returns>
         private int maxiVal(damierMiniMax damierMM,byte numBot, int profondeur, int alpha, int beta)
         {
             byte numHumain = (byte)(numBot == 1 ? 2 : 1);
@@ -92,7 +113,6 @@ namespace LePuissance4ParAntoineEtLea
             {
                 if (damierMM.nePeutQuePerdre(numBot, successeurs))
                 {
-                    //Console.WriteLine("detection de victoire assurée par le bot, profondeur=" + profondeur);
                     return -profondeur;
                 }
                 else
@@ -101,10 +121,11 @@ namespace LePuissance4ParAntoineEtLea
                     foreach (damierMiniMax currentDamier in successeurs)
                     {
                         ++jeuxCalcules;
-                        //profondeur--;
-                        int valeurFils = this.MiniVal(currentDamier, numBot, --profondeur, alpha, beta);
+                        profondeur--;
+                        int valeurFils = this.MiniVal(currentDamier, numBot, profondeur, alpha, beta);
                         max = Math.Max(max, valeurFils);
 
+                        //coupure beta
                         if (valeurFils >= beta)
                         {
                             return valeurFils;

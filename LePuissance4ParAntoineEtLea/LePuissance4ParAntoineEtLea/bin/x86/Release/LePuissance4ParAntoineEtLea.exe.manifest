@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LePuissance4ParAntoineEtLea.exe" size="21960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LePuissance4ParAntoineEtLea.exe" size="22472">
       <assemblyIdentity name="LePuissance4ParAntoineEtLea" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>tfvsuw5R7bduHKGc7t51yYYQ8es=</dsig:DigestValue>
+        <dsig:DigestValue>cti8Axz4W4voxpc/mF7bPoDlxeA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -175,6 +175,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>qk4EzKyCdRqpHROi2Uq6M0w6hvc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\images\touchesClavier.xnb" size="3978">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>ZMONNwGLqlxRG/8n59Nce889QCE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\MyFont.xnb" size="5876">

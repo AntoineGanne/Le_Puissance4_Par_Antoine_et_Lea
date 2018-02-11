@@ -16,10 +16,12 @@ namespace LePuissance4ParAntoineEtLea
         private byte gagnant;
         private bool estFeuille ;
         
-
+        /// <summary>
+        /// constructeur. Fait une copie du damier passé en paramètre
+        /// </summary>
+        /// <param name="damier_input"></param>
         public damierMiniMax(byte[,] damier_input)
         {
-            //damier = new byte[VY,VX];
             this.Damier = new byte[VY, VX];
             for(int x= 0;x < VX; x++){
                 for(int y = 0; y < VY; y++)
@@ -31,6 +33,11 @@ namespace LePuissance4ParAntoineEtLea
             estFeuille = false;
         }
 
+        /// <summary>
+        /// génère tous les fils(tous les coups possible de joueur) du damier 
+        /// </summary>
+        /// <param name="joueur"></param>
+        /// <returns></returns>
         public List<damierMiniMax> GetSuccesseurs(byte joueur)
         {
             List<damierMiniMax> resultatJeux = new List<damierMiniMax>();
@@ -51,6 +58,13 @@ namespace LePuissance4ParAntoineEtLea
             return resultatJeux;
         }
 
+        /// <summary>
+        /// modelise la pose d'un pion de joueur a la colonne donnée.
+        /// Afin de génerer les successeurs.
+        /// </summary>
+        /// <param name="colonne"></param>
+        /// <param name="joueur"></param>
+        /// <returns></returns>
         private bool posePion(int colonne,byte joueur)
         {
             if (damier[0, colonne] == 0)
@@ -141,7 +155,8 @@ namespace LePuissance4ParAntoineEtLea
       
 
         /// <summary>
-        /// renvoit vrai si le joueur(qui joue contre numAdversaire) perd qu'importe le pion qu'il joue
+        /// renvoit vrai si le joueur(qui joue contre numAdversaire) perd qu'importe le pion qu'il joue.
+        /// Cette fonction sert a attribuer une valeur  a un noeud de l'arbre des possible génerées par l'algo min max.
         /// </summary>
         /// <param name="numJoueur"></param>
         /// <returns></returns>

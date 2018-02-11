@@ -9,6 +9,7 @@ namespace LePuissance4ParAntoineEtLea
 {
     class ObjetPuissance4
     {
+        
         private Texture2D texture;
         private Vector2 position;
         private Vector2 size;
